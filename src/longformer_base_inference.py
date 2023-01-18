@@ -5,7 +5,7 @@ import streamlit as st
 from transformers import pipeline
 
 TEST_METRICS = 'https://huggingface.co/nbroad/longformer-base-health-fact/raw/main/test_results.json'
-st.title('Veracity of a claim with pretrained longformer (PUBHEALTH)')
+st.title('Veracity of a claim with pretrained base longformer (PUBHEALTH)')
 st.header('Claim')
 claim = st.text_area(label='Enter a claim text in the box')
 pl = pipeline('text-classification',

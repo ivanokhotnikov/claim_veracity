@@ -1,0 +1,26 @@
+steps:
+  - name: python:3.10-slim
+    id: "install requirements"
+    entrypoint: pip
+    args: ["install", "-r", "requirements.txt", "--user"]
+    dir: "conf"
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build container image"
+    args:
+      [
+        "build",
+        "-f",
+        "serving.dockerfile",
+        "-t",
+        "gcr.io/$PROJECT_ID/assignment-on:$SHORT_SHA",
+        "--network=cloudbuild",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push container image to container registry"
+    args: ["push", "gcr.io/$PROJECT_ID/assignment-on:$SHORT_SHA"]
+options:
+  logging: CLOUD_LOGGING_ONLY
+images:
+  - gcr.io/$PROJECT_ID/assignment-on
+timeout: 3600s
