@@ -1,0 +1,6 @@
+datasets==2.8.0
+transformers==4.25.1
+kfp==1.8.18
+ipykernel
+yapf
+pre-commit
