@@ -1,5 +1,7 @@
 .env
 .venv/
+compiled/
 data/
 models/
 *.pdf
+__pycache__
