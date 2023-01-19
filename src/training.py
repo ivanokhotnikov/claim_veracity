@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from kfp.v2 import compiler
 from kfp.v2.dsl import pipeline
 
-from components import load_data, tokenize, train
+from components import load_base, load_data, tokenize, train
 
 
 @pipeline(name='training')
@@ -16,21 +16,21 @@ def training_pipeline(dataset_name: str, checkpoint: str, batch_size: int,
                       timestamp: str, project_id: str, location: str,
                       decay_rate: float):
     load_data_task = load_data(dataset_name=dataset_name)
+    load_base_task = load_base(checkpoint=checkpoint)
     tokenize_task = tokenize(
-        checkpoint=checkpoint,
+        loaded_tokenizer=load_base_task.outputs['loaded_tokenizer'],
         interim_dataset=load_data_task.outputs['interim_data'])
     train_task = train(
         timestamp=timestamp,
         project_id=project_id,
         location=location,
         exp_name=exp_name,
-        checkpoint=checkpoint,
         batch_size=batch_size,
         epochs=epochs,
         learning_rate=learning_rate,
         decay_rate=decay_rate,
         tokenized_dataset=tokenize_task.outputs['tokenized_dataset'],
-        loaded_tokenizer=tokenize_task.outputs['loaded_tokenizer'])
+        loaded_model=load_base_task.outputs['loaded_model'])
 
 
 def get_arguments():

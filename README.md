@@ -8,19 +8,20 @@ The repository contains the source code for the training and inference of the cl
 
 ## Dataset
 
-[Dataset](https://huggingface.co/datasets/health_fact)
+The base longformer as well development version were tuned on [PUBHEALTH dataset](https://huggingface.co/datasets/health_fact)
 
 ## Hugging face demo
 
 [Demo](https://huggingface.co/spaces/ivanokhotnikov/longformer-base-health-fact)
 
+## Scalable GKE demo
+
+[Demo](http://130.211.14.19)
+
 ## Prerequisites
 
  - Python 3.10
- - [Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk)
 
 ## Setup
 
-In the repository, execute:
-
-1. `sh setup.sh`
+To set the environment `sh setup.sh`
