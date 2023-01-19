@@ -22,19 +22,17 @@ def train(tokenized_dataset: Input[Dataset], loaded_tokenizer: Input[Artifact],
                               TFAutoModelForSequenceClassification)
     tokenizer = AutoTokenizer.from_pretrained(loaded_tokenizer.path)
     tokenized_data = load_from_disk(tokenized_dataset.path)
-    data_collator = DataCollatorWithPadding(tokenizer=tokenizer,
-                                            return_tensors='tf')
+    # data_collator = DataCollatorWithPadding(tokenizer=tokenizer,
+    #                                         return_tensors='tf')
     tf_train_dataset = tokenized_data['train'].to_tf_dataset(
         columns=['input_ids', 'attention_mask'],
-        label_cols=['labels'],
+        label_cols=['label'],
         batch_size=batch_size,
-        collate_fn=data_collator,
         shuffle=True)
     tf_validation_dataset = tokenized_data['validation'].to_tf_dataset(
         columns=['input_ids', 'attention_mask'],
-        label_cols=['labels'],
+        label_cols=['label'],
         batch_size=batch_size,
-        collate_fn=data_collator,
         shuffle=False)
     num_train_steps = len(tf_train_dataset) * epochs
     lr_scheduler = ExponentialDecay(initial_learning_rate=learning_rate,
