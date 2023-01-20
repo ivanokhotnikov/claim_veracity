@@ -20,7 +20,7 @@ steps:
         "set",
         "image",
         "deployment/claim-veracity-serving",
-        "assignment-on-1=gcr.io/$PROJECT_ID/serving:$SHORT_SHA",
+        "serving=gcr.io/$PROJECT_ID/serving:$SHORT_SHA",
       ]
     env:
       - "CLOUDSDK_COMPUTE_ZONE=europe-west2"
