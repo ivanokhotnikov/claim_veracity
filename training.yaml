@@ -15,7 +15,9 @@ steps:
     id: "push container image to container registry"
     args: ["push", "gcr.io/$PROJECT_ID/training:$SHORT_SHA"]
   - name: "gcr.io/cloud-builders/gsutil"
-    args: ["cp", "-r","gs://default-keys", "/workspace/gcloud_keys"]
+    args: ["cp", "gs://default-keys/key.json", "/workspace/gcloud_keys/key.json"]
+  - name: "gcr.io/cloud-builders/gsutil"
+    args: ["cp", "gs://default-keys/.env", "/workspace/gcloud_keys/.env"]
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
