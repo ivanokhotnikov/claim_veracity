@@ -21,7 +21,8 @@ steps:
         "-e",
         "REGION=$LOCATION",
         "-e",
-        "SERVICE_ACCOUNT=vertex@assignment-on.iam.gserviceaccount.com"
+        "SERVICE_ACCOUNT=vertex@assignment-on.iam.gserviceaccount.com",
+        "gcr.io/$PROJECT_ID/training:$SHORT_SHA"
       ]
     id: "run container"
 options:
