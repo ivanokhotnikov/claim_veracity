@@ -70,7 +70,7 @@ if __name__ == '__main__':
         pipeline_func=training_pipeline,
         package_path=f'./compiled/training_{timestamp}.json')
     aip.init(project=os.environ['PROJECT_ID'],
-             location=os.environ['REGION'],
+             location=os.environ['LOCATION'],
              staging_bucket=os.environ['PIPELINES_URI'])
     job = aip.PipelineJob(
         enable_caching=True,
@@ -80,7 +80,7 @@ if __name__ == '__main__':
         parameter_values={
             'timestamp': timestamp,
             'project_id': os.environ['PROJECT_ID'],
-            'location': os.environ['REGION'],
+            'location': os.environ['LOCATION'],
             **args
         })
     job.submit(service_account=os.environ['SERVICE_ACCOUNT'])

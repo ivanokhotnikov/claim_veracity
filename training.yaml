@@ -14,14 +14,16 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     id: "push container image to container registry"
     args: ["push", "gcr.io/$PROJECT_ID/training:$SHORT_SHA"]
+  - name: "gcr.io/cloud-builders/gsutil"
+    args: ["cp", "-r","gs://default-keys", "/workspace/gcloud_keys"]
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
         "run",
         "-e",
-        "REGION=$LOCATION",
-        "-e",
-        "SERVICE_ACCOUNT=vertex@assignment-on.iam.gserviceaccount.com",
+        "GOOGLE_APPLICATION_CREDENTIALS=/gcloud_keys/key.json",
+        "-v",
+        "/workspace/gcloud_keys:/gcloud_keys:ro",
         "gcr.io/$PROJECT_ID/training:$SHORT_SHA"
       ]
     id: "run container"
