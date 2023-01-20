@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from kfp.v2 import compiler
 from kfp.v2.dsl import pipeline
 
-from components import load_base, load_data, tokenize, train
+from components import evaluate, load_base, load_data, tokenize, train
 
 
 @pipeline(name='training')
@@ -20,7 +20,7 @@ def training_pipeline(dataset_name: str, checkpoint: str, batch_size: int,
     tokenize_task = tokenize(
         loaded_tokenizer=load_base_task.outputs['loaded_tokenizer'],
         interim_dataset=load_data_task.outputs['interim_data'])
-    train_task = train(
+    train_task = (train(
         timestamp=timestamp,
         project_id=project_id,
         location=location,
@@ -29,8 +29,20 @@ def training_pipeline(dataset_name: str, checkpoint: str, batch_size: int,
         epochs=epochs,
         learning_rate=learning_rate,
         decay_rate=decay_rate,
+        loaded_tokenizer=load_base_task.outputs['loaded_tokenizer'],
         tokenized_dataset=tokenize_task.outputs['tokenized_dataset'],
         loaded_model=load_base_task.outputs['loaded_model'])
+                  ).set_cpu_limit('8').set_memory_limit('64G')
+    evaluate_task = (evaluate(
+        timestamp=timestamp,
+        project_id=project_id,
+        location=location,
+        exp_name=exp_name,
+        batch_size=batch_size,
+        loaded_tokenizer=load_base_task.outputs['loaded_tokenizer'],
+        tokenized_dataset=tokenize_task.outputs['tokenized_dataset'],
+        trained_model=train_task.outputs['trained_model'])
+                     ).set_cpu_limit('8').set_memory_limit('64G')
 
 
 def get_arguments():
@@ -43,8 +55,8 @@ def get_arguments():
     parser.add_argument('--dataset_name', type=str, default='health_fact')
     # Training
     parser.add_argument('--batch_size', type=int, default=2)
-    parser.add_argument('--epochs', type=int, default=2)
-    parser.add_argument('--learning_rate', type=float, default=1e-1)
+    parser.add_argument('--epochs', type=int, default=1)
+    parser.add_argument('--learning_rate', type=float, default=1)
     parser.add_argument('--decay_rate', type=float, default=0.96)
     return parser.parse_args()
 
