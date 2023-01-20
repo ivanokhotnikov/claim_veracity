@@ -4,6 +4,9 @@ export
 default-retrain:
 	python src/training.py
 
+custom-retrain:
+	python src/training.py $(params)
+
 pre-commit:
 	pre-commit run --all-files
 

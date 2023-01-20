@@ -25,9 +25,9 @@ The GKE would allows more flexibility and scalability with the serving app devel
 To enable further development and fine tuning from the base model, the cloud training workflow has been implemented with Vertex AI in Google Cloud Platform. The workflow allows to specify different checkpoint for the base model from The Hugging Face Models Hub, dataset as well as training parameters.
 
 To start training:
-1. Set up and activate the local virtual environment: `sh venv.sh`
+1. Set up and activate the local virtual environment: `make venv`
 2. Install pre-commit hooks: `pre-commit install`
-3. Submit training job to Vertex AI: `python src/training.py [OPTIONS]`
+3. Submit training job to Vertex AI: `make custom-run params="[OPTIONS]"` or `make default-retrain`
 
 The command line interface OPTIONS include the following:
 
