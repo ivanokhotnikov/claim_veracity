@@ -24,12 +24,12 @@ steps:
       ]
     env:
       - "CLOUDSDK_COMPUTE_ZONE=europe-west2-a"
-      - "CLOUDSDK_CONTAINER_CLUSTER=claim-veracity"
+      - "CLOUDSDK_CONTAINER_CLUSTER=claim-veraicty"
   - name: "gcr.io/cloud-builders/kubectl"
     args: ["rollout", "restart", "deployment/forecasting"]
     env:
       - "CLOUDSDK_COMPUTE_ZONE=europe-west2-a"
-      - "CLOUDSDK_CONTAINER_CLUSTER=claim-veracity"
+      - "CLOUDSDK_CONTAINER_CLUSTER=claim-veraicty"
 options:
   logging: CLOUD_LOGGING_ONLY
 timeout: 3600s
