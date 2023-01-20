@@ -23,9 +23,9 @@ steps:
       [
         "run",
         "-e",
-        "GOOGLE_APPLICATION_CREDENTIALS=/gcloud_keys/key.json",
+        "GOOGLE_APPLICATION_CREDENTIALS=/app/key.json",
         "-v",
-        "/workspace/gcloud_keys:/gcloud_keys:ro",
+        "/workspace/gcloud_keys:/app:ro",
         "gcr.io/$PROJECT_ID/training:$SHORT_SHA"
       ]
     id: "run container"

@@ -3,4 +3,4 @@
 data/
 models/
 *.pdf
-*.sh
+venv.sh
