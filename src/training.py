@@ -83,4 +83,4 @@ if __name__ == '__main__':
             'location': os.environ['LOCATION'],
             **args
         })
-    job.submit()
+    job.submit(service_account=os.environ['SERVICE_ACCOUNT'])
