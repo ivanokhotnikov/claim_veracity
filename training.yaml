@@ -14,20 +14,8 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     id: "push container image to container registry"
     args: ["push", "gcr.io/$PROJECT_ID/training:$SHORT_SHA"]
-  - name: "gcr.io/cloud-builders/gsutil"
-    args: ["cp", "gs://default-keys/key.json", "/workspace/gcloud_keys/key.json"]
-  - name: "gcr.io/cloud-builders/gsutil"
-    args: ["cp", "gs://default-keys/.env", "/workspace/gcloud_keys/.env"]
   - name: "gcr.io/cloud-builders/docker"
-    args:
-      [
-        "run",
-        "-e",
-        "GOOGLE_APPLICATION_CREDENTIALS=/app/key.json",
-        "-v",
-        "/workspace/gcloud_keys:/app:ro",
-        "gcr.io/$PROJECT_ID/training:$SHORT_SHA"
-      ]
+    args: ["run", "gcr.io/$PROJECT_ID/training:$SHORT_SHA"]
     id: "run container"
 options:
   logging: CLOUD_LOGGING_ONLY

@@ -3,4 +3,4 @@ RUN apt-get update && apt-get install make
 COPY . /app
 RUN pip install --no-cache-dir -r app/conf/requirements-train.txt
 WORKDIR /app
-CMD make default-retrain
+CMD python src/training.py

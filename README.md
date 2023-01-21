@@ -20,14 +20,29 @@ The GKE would allows more flexibility and scalability with the serving app devel
 
 - [The GKE demo of the base model](http://130.211.14.19)
 
+## Cloud architecture
+
+The implemented cloud architecture is depicted below. It includes the current source code repository, Google Cloud Build triggers to start rebuilding serving and training docker containers, Google Cloud Registry to store the built containers, Google Kubernetes Engine cluster to serve the deployment of the inference serving app and Google Cloud Storage buckets to store training artifacts, metrics, models and runs metadata.
+
+![](images/infra.png)
+
+
 ## Training
 
 To enable further development and fine tuning from the base model, the cloud training workflow has been implemented with Vertex AI in Google Cloud Platform. The workflow allows to specify different checkpoint for the base model from The Hugging Face Models Hub, dataset as well as training parameters.
 
-To start training:
-1. Set up and activate the local virtual environment: `make venv`
+To start training run:
+1. Set up and activate the local virtual environment:
+
+```
+python -m venv .venv
+source .venv/Scripts/activate
+python -m pip install --upgrade pip setuptools
+pip install -r conf/requirements-train.txt
+```
+
 2. Install pre-commit hooks: `pre-commit install`
-3. Submit training job to Vertex AI: `make custom-run params="[OPTIONS]"` or `make default-retrain`
+3. Submit training job to Vertex AI: `python src/training.py [OPTIONS]`
 
 The command line interface OPTIONS include the following:
 
@@ -40,6 +55,12 @@ The command line interface OPTIONS include the following:
     --decay_rate DECAY_RATE
 
 4. To track the training progression, follow the generated link in the terminal
+
+### Workflow
+
+The implemented training workflow is described by the directed acyclic graph (DAG) below. The workflow (or pipeline) and individual stages (or components) was specified with Kubeflow SDK.
+
+![Training DAG](images/dag.png)
 
 ## Continuous deployment and retraining
 

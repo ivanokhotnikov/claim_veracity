@@ -1,6 +1,10 @@
-.env
 .venv/
+compiled/
+conf/
 data/
 models/
+images/
+*.ipynb
 *.pdf
-venv.sh
+__pycache__
+*.md
