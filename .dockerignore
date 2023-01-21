@@ -1,6 +1,5 @@
 .venv/
 compiled/
-conf/
 data/
 models/
 images/
