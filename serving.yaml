@@ -26,7 +26,7 @@ steps:
       - "CLOUDSDK_COMPUTE_ZONE=europe-west2"
       - "CLOUDSDK_CONTAINER_CLUSTER=claim-veraicty"
   - name: "gcr.io/cloud-builders/kubectl"
-    args: ["rollout", "restart", "deployment/forecasting"]
+    args: ["rollout", "restart", "deployment/claim-veracity-serving"]
     env:
       - "CLOUDSDK_COMPUTE_ZONE=europe-west2"
       - "CLOUDSDK_CONTAINER_CLUSTER=claim-veraicty"
