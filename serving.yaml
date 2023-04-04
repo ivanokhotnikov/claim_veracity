@@ -21,7 +21,7 @@ steps:
       [
         "run",
         "deploy",
-        "claim-veracity-app",
+        "claim-veracity",
         "--image",
         "gcr.io/$PROJECT_ID/serving:$SHORT_SHA",
         "--region",
