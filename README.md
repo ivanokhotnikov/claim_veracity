@@ -10,15 +10,15 @@ The base longformer model as well the development version were tuned to [PUBHEAL
 
 [The base model](https://huggingface.co/nbroad/longformer-base-health-fact) used in training is derived from the [longformer architecture](https://arxiv.org/abs/2004.05150). The Hugging Face model repo contains all the details of the base model, its training hyper parameters and training and evaluation results.
 
-To put the base model into production and collect insights into the base model performance faster, two demos were implemented differing in approaches: Hugging Face Spaces and Google Kubernetes Engine (GKE).
+To put the base model into production and collect insights into the base model performance faster, three demos were implemented differing in approaches: Hugging Face Spaces, serverless Google Cloud Run and Google Kubernetes Engine (now deprecated).
 
-The GKE would allows more flexibility and scalability with the serving app development, testing and deploying as the serving infrastructure is fully controllable.
+The GKE would allow more flexibility and scalability with the serving app development, testing and deploying as the serving infrastructure is fully controllable.
 
 ### Demos
 
 - [The Hugging Face Spaces demo](https://huggingface.co/spaces/ivanokhotnikov/longformer-base-health-fact)
 
-- [The GKE demo of the base model](http://130.211.14.19)
+- [Google Cloud Run demo of the base model](https://claim-veracity-k6577d6c5a-ew.a.run.app)
 
 ## Cloud architecture
 
